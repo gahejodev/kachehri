@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ڪچهري</string>
+    <string name="slogan">رازداراڻو ۽ پڄاڻيءَ تائين انڪرپٽ ٿيل سنڌي ميسينجر</string>
+    <string name="chats">ڪچهريون</string>
+    <string name="status">حيثيت</string>
+    <string name="calls">ڪالون</string>
+    <string name="privacy">رازداري</string>
+    <string name="search_hint">ڪچهريون يا نالا ڳوليو...</string>
+    <string name="sign_in">داخل ٿيو</string>
+    <string name="create_account">کاتو جوڙيو</string>
+    <string name="google_sign_in">گوگل ذريعي داخل ٿيو</string>
+    <string name="guest_sign_in">مهمان طور شامل ٿيو</string>
+</resources>
