@@ -212,12 +212,12 @@ fun LoginScreen(
                     }
                 }
 
-                errorMessage = "Google sign-in is not configured. Please use email sign-in or contact support."\n            } catch (e: GetCredentialCancellationException) {
+                errorMessage = "Google sign-in is not configured. Please use email sign-in or contact support."            } catch (e: GetCredentialCancellationException) {
                 statusMessage = null
                 Log.d(TAG, "Google Sign-In prompt cancelled by user")
             } catch (e: Exception) {
                 Log.w(TAG, "Google Sign-In notice: ${e.message}")
-                errorMessage = "Google sign-in failed: ${e.localizedMessage ?: "Please try again."}"\n            } finally {
+                errorMessage = "Google sign-in failed: ${e.localizedMessage ?: "Please try again."}"            } finally {
                 isLoading = false
             }
         }
@@ -284,41 +284,7 @@ fun LoginScreen(
                         return@launch
                     }
                 } else {
-                    // Local Encrypted Multi-User Storage:
-                    // Instant, zero-friction registration & verification without Recaptcha / invalid API key errors!
-                    delay(300)
-                    if (selectedTab == 0) {
-                        when (val result = localAccountStore.authenticateUser(trimmedEmail, trimmedPassword)) {
-                            is LocalAccountStore.AuthResult.Success -> {
-                                Toast.makeText(context, "Welcome back, ${result.user.displayName}!", Toast.LENGTH_SHORT).show()
-                                onSignInSuccess(result.user)
-                                return@launch
-                            }
-                            is LocalAccountStore.AuthResult.Error -> {
-                                errorMessage = result.message
-                                isLoading = false
-                                return@launch
-                            }
-                        }
-                    } else {
-                        val displayName = if (trimmedName.isNotEmpty()) {
-                            trimmedName
-                        } else {
-                            trimmedEmail.substringBefore("@").replaceFirstChar { it.uppercase() }
-                        }
-                        when (val result = localAccountStore.registerUser(trimmedEmail, displayName, trimmedPassword)) {
-                            is LocalAccountStore.AuthResult.Success -> {
-                                Toast.makeText(context, "Account created! Welcome, ${result.user.displayName}!", Toast.LENGTH_SHORT).show()
-                                onSignInSuccess(result.user)
-                                return@launch
-                            }
-                            is LocalAccountStore.AuthResult.Error -> {
-                                errorMessage = result.message
-                                isLoading = false
-                                return@launch
-                            }
-                        }
-                    }
+                    errorMessage = "Firebase is not configured. Sign-in requires a connected Firebase project."
                 }
             } catch (e: Exception) {
                 errorMessage = e.localizedMessage ?: "Failed to sign in. Please try again."
@@ -968,4 +934,4 @@ fun LoginScreen(
             }
         )
     }
-}                } else {\n                    errorMessage = "Firebase is not configured. Sign-in is unavailable until the app is connected to a Firebase project."\n                }\n
+}
