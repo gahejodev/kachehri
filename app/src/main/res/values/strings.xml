@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kachehri</string>
+    <!-- Placeholder for builds without google-services.json; replace with generated OAuth ID when configured. -->
+    <string name="default_web_client_id" translatable="false"></string>
 </resources>
