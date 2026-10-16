@@ -20,6 +20,6 @@ jobs:
           gradle-version: '9.3.1'
       - name: Install Android SDK
         run: |
-          sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+          /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - name: Compile debug and run unit tests
         run: gradle :app:assembleDebug :app:testDebugUnitTest --stacktrace --no-daemon
