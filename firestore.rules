@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Fail closed. The current chat document model lacks authenticated
+    // participant IDs and cannot be safely authorized yet.
+    // Do NOT relax this rule until membership checks are implemented and tested.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
