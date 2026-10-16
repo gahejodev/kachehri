@@ -1,7 +1,6 @@
 package com.example.data.repository
 
 import com.example.data.crypto.E2EEEngine
-import com.example.data.db.DatabaseSeeder
 import com.example.data.db.KachehriDao
 import com.example.data.model.CallLogEntity
 import com.example.data.model.ChatEntity
@@ -21,16 +20,6 @@ class KachehriRepository(
     private val dao: KachehriDao,
     val firestoreRepo: FirestoreChatRepository = FirestoreChatRepository()
 ) {
-
-    init {
-        CoroutineScope(Dispatchers.IO).launch {
-            // If empty, seed initial demo data
-            val existingChats = dao.getAllChatsWithContact().first()
-            if (existingChats.isEmpty()) {
-                DatabaseSeeder.seedInitialData(dao)
-            }
-        }
-    }
 
     fun getAllChats(): Flow<List<ChatWithContact>> = dao.getAllChatsWithContact()
 
@@ -68,7 +57,7 @@ class KachehriRepository(
             ivHex = encrypted.ivHex,
             timestamp = now,
             isOutgoing = true,
-            status = "DELIVERED",
+            status = "PENDING",
             isViewOnce = isViewOnce,
             isOpened = false,
             mediaType = mediaType,
@@ -143,7 +132,7 @@ class KachehriRepository(
             contactId = contact.id,
             unreadCount = 0,
             isPinned = false,
-            lastMessageText = "Chat started • E2EE Encrypted",
+            lastMessageText = "Chat started",
             lastMessageTimestamp = System.currentTimeMillis()
         )
         dao.insertChat(chat)
@@ -177,7 +166,7 @@ class KachehriRepository(
             isOutgoing = isOutgoing,
             isMissed = duration == 0 && !isOutgoing,
             durationSeconds = duration,
-            e2eeVerified = true
+            e2eeVerified = false
         )
         dao.insertCallLog(call)
     }
