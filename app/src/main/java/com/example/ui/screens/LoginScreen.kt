@@ -212,35 +212,12 @@ fun LoginScreen(
                     }
                 }
 
-                // If Google Play Services is not configured on this emulator or testing in local mode:
-                // Use the entered email/name if provided, or default to a clean user session
-                delay(400)
-                val targetEmail = email.trim().ifEmpty { "gahejoqasimk@gmail.com" }
-                val targetName = fullName.trim().ifEmpty {
-                    if (targetEmail.contains("@")) targetEmail.substringBefore("@").replaceFirstChar { it.uppercase() } else "User"
-                }
-                statusMessage = "Signed in with Google"
-                delay(200)
-                val user = AuthUser.createAuthenticatedUser(
-                    email = targetEmail,
-                    displayName = targetName
-                )
-                Toast.makeText(context, "Signed in as ${user.displayName}", Toast.LENGTH_SHORT).show()
-                onSignInSuccess(user)
-            } catch (e: GetCredentialCancellationException) {
+                errorMessage = "Google sign-in is not configured. Please use email sign-in or contact support."\n            } catch (e: GetCredentialCancellationException) {
                 statusMessage = null
                 Log.d(TAG, "Google Sign-In prompt cancelled by user")
             } catch (e: Exception) {
                 Log.w(TAG, "Google Sign-In notice: ${e.message}")
-                val targetEmail = email.trim().ifEmpty { "gahejoqasimk@gmail.com" }
-                val targetName = fullName.trim().ifEmpty { targetEmail.substringBefore("@").replaceFirstChar { it.uppercase() } }
-                val user = AuthUser.createAuthenticatedUser(
-                    email = targetEmail,
-                    displayName = targetName
-                )
-                Toast.makeText(context, "Signed in as ${user.displayName}", Toast.LENGTH_SHORT).show()
-                onSignInSuccess(user)
-            } finally {
+                errorMessage = "Google sign-in failed: ${e.localizedMessage ?: "Please try again."}"\n            } finally {
                 isLoading = false
             }
         }
@@ -991,4 +968,4 @@ fun LoginScreen(
             }
         )
     }
-}
+}                } else {\n                    errorMessage = "Firebase is not configured. Sign-in is unavailable until the app is connected to a Firebase project."\n                }\n
