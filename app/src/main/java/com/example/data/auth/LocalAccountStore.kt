@@ -24,17 +24,6 @@ class LocalAccountStore(context: Context) {
         data class Error(val message: String) : AuthResult()
     }
 
-    init {
-        // Pre-seed default administrator / owner account for smooth zero-configuration access
-        if (!hasAccount("gahejoqasimk@gmail.com")) {
-            registerUser(
-                email = "gahejoqasimk@gmail.com",
-                displayName = "Qasim Gahejo",
-                password = "Password123!"
-            )
-        }
-    }
-
     fun hasAccount(email: String): Boolean {
         val key = normalizeEmail(email)
         return prefs.contains(key)
@@ -73,7 +62,7 @@ class LocalAccountStore(context: Context) {
             email = normalized,
             displayName = displayName,
             isAnonymous = false,
-            isLocalDemo = false
+            isLocalDemo = true
         )
         return AuthResult.Success(authUser)
     }
@@ -108,7 +97,7 @@ class LocalAccountStore(context: Context) {
                     email = normalized,
                     displayName = displayName,
                     isAnonymous = false,
-                    isLocalDemo = false
+                    isLocalDemo = true
                 )
                 AuthResult.Success(authUser)
             } else {
