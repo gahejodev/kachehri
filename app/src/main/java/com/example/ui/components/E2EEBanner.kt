@@ -58,14 +58,14 @@ fun E2EEBanner(
         ) {
             Icon(
                 imageVector = Icons.Default.Lock,
-                contentDescription = "End-to-end encrypted",
+                contentDescription = "Security notice",
                 tint = E2EEAmber,
                 modifier = Modifier
                     .size(15.dp)
                     .padding(end = 4.dp)
             )
             Text(
-                text = "Messages and calls are end-to-end encrypted. No one outside of this chat, not even Kachehri, can read or listen to them. Tap to learn more.",
+                text = "Security notice: This prototype does not provide verified end-to-end encryption. Do not share sensitive messages.",
                 fontSize = 11.5.sp,
                 lineHeight = 15.sp,
                 fontWeight = FontWeight.Medium,
