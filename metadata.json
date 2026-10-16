@@ -1,6 +1,7 @@
 {
-  "name": "ڪچهري",
+  "name": "Kachehri",
   "description": "سنڌي ٻوليءَ ۾ مڪمل محفوظ، خفيه ۽ پڄاڻيءَ تائين انڪرپٽ ٿيل سنڌي ثقافتي ميسينجر.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "developer": "Gahejo Dev",
+  "majorCapabilities": []
 }
