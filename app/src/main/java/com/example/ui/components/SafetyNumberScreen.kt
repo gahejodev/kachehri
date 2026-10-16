@@ -74,7 +74,7 @@ fun SafetyNumberScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Verify Security Code", fontWeight = FontWeight.SemiBold) },
+                title = { Text("Demo Security Code", fontWeight = FontWeight.SemiBold) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick, modifier = Modifier.testTag("safety_number_back_button")) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -214,7 +214,7 @@ fun SafetyNumberScreen(
 
             // Explanation note
             Text(
-                text = "To verify that end-to-end encryption is active with ${contact.name}, compare the 60 digits above with their device, or scan the QR code. All messages and calls are protected with forward secrecy.",
+                text = "Prototype only: this code and image do not verify identities, and messages do not have proven end-to-end encryption or forward secrecy.",
                 fontSize = 12.5.sp,
                 lineHeight = 18.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -237,13 +237,13 @@ fun SafetyNumberScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = if (contact.isVerified) "Verified Contact" else "Mark as Verified",
+                            text = if (contact.isVerified) "Demo Flag Enabled" else "Demo Flag",
                             fontWeight = FontWeight.Bold,
                             fontSize = 15.sp,
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = if (contact.isVerified) "Keys verified via in-person check" else "Turn on once safety numbers match",
+                            text = "Not a real cryptographic verification",
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -280,7 +280,7 @@ fun SafetyNumberScreen(
             ) {
                 Icon(Icons.Default.QrCodeScanner, contentDescription = null, tint = Color.White)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Scan Code to Verify", color = Color.White, fontWeight = FontWeight.Bold)
+                Text("Demo Only", color = Color.White, fontWeight = FontWeight.Bold)
             }
 
             if (scanSuccessMessage != null) {
