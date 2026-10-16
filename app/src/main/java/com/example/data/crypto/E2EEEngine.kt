@@ -13,10 +13,10 @@ object E2EEEngine {
     private const val IV_LENGTH = 12
     private val secureRandom = SecureRandom()
 
-    // Deterministic or session-derived 256-bit key for a contact pair
+    // WARNING: Deterministic demo-only key. This is NOT end-to-end encryption; replace with authenticated per-device key exchange before real messaging.
     fun deriveSharedKey(chatId: String): ByteArray {
         val md = MessageDigest.getInstance("SHA-256")
-        val seed = "Kachehri_Signal_Protocol_DoubleRatchet_v3_$chatId"
+        val seed = "Kachehri_INSECURE_DEMO_KEY_DO_NOT_USE_FOR_PRIVATE_CHATS_$chatId"
         return md.digest(seed.toByteArray(Charsets.UTF_8))
     }
 
@@ -43,13 +43,7 @@ object E2EEEngine {
                 ivHex = iv.joinToString("") { "%02x".format(it) }
             )
         } catch (e: Exception) {
-            // Fallback safe simulation
-            val fakeIv = ByteArray(IV_LENGTH)
-            secureRandom.nextBytes(fakeIv)
-            return EncryptedPayload(
-                cipherTextHex = plainText.toByteArray().joinToString("") { "%02x".format(it) },
-                ivHex = fakeIv.joinToString("") { "%02x".format(it) }
-            )
+            throw SecurityException("Message encryption failed; refusing to send plaintext", e)
         }
     }
 
@@ -67,12 +61,7 @@ object E2EEEngine {
             val decryptedBytes = cipher.doFinal(cipherBytes)
             return String(decryptedBytes, Charsets.UTF_8)
         } catch (e: Exception) {
-            // If unable to decrypt with GCM, try hex decoding fallback
-            return try {
-                String(hexToBytes(cipherTextHex), Charsets.UTF_8)
-            } catch (ex: Exception) {
-                "[Encrypted Payload]"
-            }
+            throw SecurityException("Message authentication or decryption failed", e)
         }
     }
 
@@ -85,7 +74,7 @@ object E2EEEngine {
         return result
     }
 
-    // 60-digit safety number grouped into 12 5-digit segments (standard Signal/WhatsApp protocol)
+    // Demo-only fingerprint. NOT a Signal/WhatsApp safety number.
     fun generateSafetyNumber(contactId: String): String {
         val md = MessageDigest.getInstance("SHA-512")
         val hash = md.digest("Kachehri_Identity_Fingerprint_$contactId".toByteArray())
@@ -120,7 +109,7 @@ object E2EEEngine {
         )
     }
 
-    // Deterministic 21x21 QR Code bit matrix for Safety Number scanning
+    // Decorative 21x21 matrix; NOT a standards-compliant scannable QR code.
     fun generateQrMatrix(data: String): Array<BooleanArray> {
         val size = 21
         val matrix = Array(size) { BooleanArray(size) }
