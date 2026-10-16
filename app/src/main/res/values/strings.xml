@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kachehri</string>
+    <!-- Empty until google-services.json supplies the actual OAuth web client ID. -->
+    <string name="default_web_client_id" translatable="false"></string>
 </resources>
